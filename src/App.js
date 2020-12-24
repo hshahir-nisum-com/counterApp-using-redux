@@ -1,29 +1,49 @@
-
 import './App.css';
-import store from './functions/store/index';
 import { useDispatch } from 'react-redux';
-import {add} from './functions/actions';
+import {add,dec} from './functions/actions';
+import {connect} from 'react-redux';
 
-function App() {
-  console.log(store.getState())
+function App(props) {
+  console.log(props.counts.countNumber)
   const dispatch = useDispatch();
+
   return (
     <div className="App">
       <header className="App-header">
         <div>
-            <span> Number </span> <br/>
-            <div className="wrapper">
-            <input type="button" value="Increment" className="btn"
-            onClick={() => {
-              dispatch(add())
-            }}
-             />
-            <input type="button" value="Decrement" className="btn"/>
-            </div>
+          <span> Number : {props.counts.countNumber} </span> <br />
+          <div className="wrapper">
+            <input
+              type="button"
+              value="Increment"
+              className="btn"
+              onClick={() => {
+                dispatch(add());
+              }}
+            />
+            <input type="button" value="Decrement" className="btn" 
+               onClick={() => {
+                dispatch(dec());
+              }}
+            />
+          </div>
         </div>
       </header>
     </div>
   );
 }
 
-export default App;
+
+const mapStatetoProps = state =>{
+  return {
+    counts: state
+  };
+}
+const mapDispatchToProps = dispatch =>{
+  return {
+    countNumber: () => dispatch(add()) ,
+    DecrementNum: () => dispatch(dec()) ,
+  };
+}
+
+export default connect(mapStatetoProps, mapDispatchToProps)(App);

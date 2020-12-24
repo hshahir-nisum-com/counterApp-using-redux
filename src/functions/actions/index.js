@@ -1,15 +1,15 @@
 import { type } from "./type";
 
-export const add = ()=>{
+export const add = (Number=1)=>{
     return {
         type : type.add,
-        payLoad : "add values"
+        payLoad : Number
     }   
 }
 
-export const dec = ()=>{
+export const dec = (minus=-1)=>{
     return {
         type : type.dec,
-        payLoad : "add values"
+        payLoad : minus
     }   
 }
